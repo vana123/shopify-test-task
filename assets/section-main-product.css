@@ -148,9 +148,11 @@ input[type="number"]::-webkit-outer-spin-button {
 .product__buy-buttons .payment-method{
   display: flex;
   margin: 24px auto;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 .product__buy-buttons .payment-method img{
-  margin: 0 16px;
+  margin: 5px 16px;
 }
 
 .product-slider{
