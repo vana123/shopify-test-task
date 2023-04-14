@@ -1,35 +1,28 @@
-let currentSlide = 0;
-const slides = document.querySelectorAll(".slide");
-const dots = document.querySelectorAll(".dot");
+"use strict";
 
-const init = (n) => {
-	slides.forEach((slide, index) => {
-		slide.style.display = "none";
-		dots.forEach((dot, index) => {
-			dot.classList.remove("active");
-		});
-	});
-	slides[n].style.display = "block";
-	dots[n].classList.add("active");
+var slider = document.querySelector('.slider');
+var li = slider.querySelectorAll('ul li');
+var leftBtn = slider.querySelector('button.left');
+var rightBtn = slider.querySelector('button.right');
+var score = 0;
+
+slider.firstElementChild.style.width = li.length * 150 + 50 + 'px';
+
+function scroll() {
+
+  if (this.classList[1] == 'right') {
+    if (li[score].nextElementSibling.nextElementSibling.nextElementSibling == null) return;
+    li[score].style.display = 'none';
+    score++;
+  };
+
+  if (this.classList[1] == 'left') {
+    if (score == 0) return;
+    li[score - 1].style.display = 'inline-block';
+    score--;
+  };
+
 };
-document.addEventListener("DOMContentLoaded", init(currentSlide));
-const next = () => {
-	currentSlide >= slides.length - 1 ? (currentSlide = 0) : currentSlide++;
-	init(currentSlide);
-};
 
-const prev = () => {
-	currentSlide <= 0 ? (currentSlide = slides.length - 1) : currentSlide--;
-	init(currentSlide);
-};
-
-document.querySelector(".next").addEventListener("click", next);
-
-document.querySelector(".prev").addEventListener("click", prev);
-
-dots.forEach((dot, i) => {
-	dot.addEventListener("click", () => {
-		init(i);
-		currentSlide = i;
-	});
-});
+rightBtn.addEventListener('click', scroll);
+leftBtn.addEventListener('click', scroll);
