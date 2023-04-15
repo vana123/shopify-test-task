@@ -1,9 +1,11 @@
 {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
-{{ 'section-featured-product.css' | asset_url | stylesheet_tag }}
+<!-- {{ 'section-featured-product.css' | asset_url | stylesheet_tag }} -->
 {{ 'component-accordion.css' | asset_url | stylesheet_tag }}
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
 {{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
 {{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
+
+{{ 'star-rating.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
   .section-{{ section.id }}-padding {
@@ -20,6 +22,7 @@
 {%- endstyle -%}
 
 <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
+
 
 {%- liquid
   assign product = section.settings.product
@@ -134,6 +137,23 @@
             {%- case block.type -%}
               {%- when '@app' -%}
                 {% render block %}
+              {%- when 'star-rating' -%}
+                <div class="star-rating">
+                  <div class="star-rating__title">
+                    <h2 class="title">
+                      {{block.settings.title}}
+                    </h2>
+                  </div>
+                  <div class="star-rating__star-container">
+                      <img class="star-rating__star" src="{{'star.svg' | asset_url}}" alt="">
+                      <img class="star-rating__star" src="{{'star.svg' | asset_url}}" alt="">
+                      <img class="star-rating__star" src="{{'star.svg' | asset_url}}" alt="">
+                      <img class="star-rating__star" src="{{'star.svg' | asset_url}}" alt="">
+                      <img class="star-rating__star" src="{{'star.svg' | asset_url}}" alt="">
+                      <div class="star-rating__rating"><span>4.5/5</span></div>
+                      <div class="star-rating__reviews"><span>215 reviews</span></div>
+                  </div>
+                </div>
               {%- when 'text' -%}
                 <p
                   class="product__text inline-richtext{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}"
@@ -141,6 +161,7 @@
                 >
                   {{- block.settings.text -}}
                 </p>
+                <div product-id="{{ product.id }}" class="alr-display-review-badge"></div>
               {%- when 'title' -%}
                 <h2 class="product__title {{ block.settings.heading_size }}" {{ block.shopify_attributes }}>
                   {%- if product.title != blank -%}
@@ -337,81 +358,10 @@
                 {% render 'icon-with-text', block: block %}
             {%- endcase -%}
           {%- endfor -%}
-          <a
-            {% if product == blank %}
-              role="link" aria-disabled="true"
-            {% else %}
-              href="{{ product.url }}"
-            {% endif %}
-            class="link product__view-details animate-arrow"
-          >
-            {{ 'products.product.view_full_details' | t }}
-            {% render 'icon-arrow' %}
-          </a>
         </product-info>
       </div>
-      {%- if section.settings.media_position == 'right' -%}
-        <div class="grid__item product__media-wrapper small-hide">
-          <media-gallery
-            id="MediaGallery-{{ section.id }}-right"
-            role="region"
-            aria-label="{{ 'products.product.media.gallery_viewer' | t }}"
-            data-desktop-layout="stacked"
-          >
-            <div id="GalleryViewer-{{ section.id }}-right" class="product__media-list">
-              {%- if product.selected_or_first_available_variant.featured_media != null -%}
-                {%- assign media = product.selected_or_first_available_variant.featured_media -%}
-                <div class="product__media-item" data-media-id="{{ section.id }}-{{ media.id }}">
-                  {% render 'product-thumbnail',
-                    media: media,
-                    position: 'featured',
-                    loop: section.settings.enable_video_looping,
-                    modal_id: section.id,
-                    xr_button: false,
-                    media_width: media_width,
-                    media_fit: section.settings.media_fit,
-                    constrain_to_viewport: section.settings.constrain_to_viewport
-                  %}
-                </div>
-              {%- endif -%}
-              {%- for media in product.media -%}
-                {%- if media_to_render contains media.id
-                  and media.id != product.selected_or_first_available_variant.featured_media.id
-                -%}
-                  <div class="product__media-item" data-media-id="{{ section.id }}-{{ media.id }}">
-                    {% render 'product-thumbnail',
-                      media: media,
-                      position: forloop.index,
-                      loop: section.settings.enable_video_looping,
-                      modal_id: section.id,
-                      xr_button: false,
-                      media_width: media_width,
-                      media_fit: section.settings.media_fit,
-                      constrain_to_viewport: section.settings.constrain_to_viewport
-                    %}
-                  </div>
-                {%- endif -%}
-              {%- endfor -%}
-            </div>
-            {%- if first_3d_model -%}
-              <button
-                class="button button--full-width product__xr-button"
-                type="button"
-                aria-label="{{ 'products.product.xr_button_label' | t }}"
-                data-shopify-xr
-                data-shopify-model3d-id="{{ first_3d_model.id }}"
-                data-shopify-title="{{ product.title | escape }}"
-                data-shopify-xr-hidden
-              >
-                {% render 'icon-3d-model' %}
-                {{ 'products.product.xr_button' | t }}
-              </button>
-            {%- endif -%}
-          </media-gallery>
-        </div>
-      {%- endif -%}
     </div>
-    {% render 'product-media-modal', product: product, variant_images: media_to_render %}
+    <!-- {% render 'product-media-modal', product: product, variant_images: media_to_render %} -->
   </div>
 </section>
 
@@ -526,6 +476,18 @@
   "blocks": [
     {
       "type": "@app"
+    },
+    {
+      "type": "star-rating",
+      "name": "star-rating",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "title",
+          "default": "Klanten waarderen onss",
+          "label": "t:sections.featured-product.blocks.text.settings.text.label"
+        }
+      ]
     },
     {
       "type": "text",

@@ -1,0 +1,46 @@
+.star-rating {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 0;
+	align-items: center;
+}
+@media (max-width: 750px) {
+	.star-rating {
+		grid-template-columns: 1fr;
+	}
+    .star-rating__star-container {
+        justify-content: center;
+    }
+}
+
+.star-rating__star-container {
+	display: flex;
+	height: max-content;
+	justify-content: flex-end;
+	gap: 5px;
+    align-items: center;
+}
+
+.star-rating__star {
+	width: 10%;
+}
+.star-rating__rating {
+	font-style: normal;
+	font-weight: 600;
+	font-size: 50px;
+
+    height: min-content;
+
+}
+
+.star-rating__reviews {
+	font-style: normal;
+	font-weight: 600;
+	font-size: 20px;
+	color: #a0a0a0;
+    height: min-content;
+}
+
+.star-rating .star-rating__title {
+	max-width: 441px;
+}
