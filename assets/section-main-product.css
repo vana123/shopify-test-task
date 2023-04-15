@@ -64,6 +64,8 @@
 	background: #d5dce2;
 }
 
+
+
 /* product__buy-buttons */
 .product__buy-buttons {
 	display: flex;
@@ -138,10 +140,10 @@ input[type="number"]::-webkit-outer-spin-button {
 	align-items: center;
 	padding: 18px 32px;
 	gap: 10px;
-	background: #ff5c00;
+	background: rgb(var(--color-button));;
 	border-radius: 40px;
 	border: none;
-  color: #FFFFFF;
+  color: rgb(var(--color-button-text));
   cursor: pointer;
 }
 

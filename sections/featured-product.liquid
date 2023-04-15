@@ -5,6 +5,8 @@
 {{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
 {{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
 
+{{ 'star-rating.css' | asset_url | stylesheet_tag }}
+
 {%- style -%}
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
@@ -20,6 +22,7 @@
 {%- endstyle -%}
 
 <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
+
 
 {%- liquid
   assign product = section.settings.product
@@ -120,7 +123,6 @@
             </button>
           {%- endif -%}
         </media-gallery>
-        test
       </div>
       <div class="product__info-wrapper grid__item">
         <product-info
@@ -135,11 +137,21 @@
             {%- case block.type -%}
               {%- when '@app' -%}
                 {% render block %}
-              {% when 'shopify:\/\/apps\/product-reviews\/blocks\/star_rating\/bae150af-8da8-48b2-9867-398188115e5f' %}
-                <div>
-                  <div>title</div>
-                  <div>
-                    {% render block %}
+              {%- when 'star-rating' -%}
+                <div class="star-rating">
+                  <div class="star-rating__title">
+                    <h2 class="title">
+                      {{block.settings.title}}
+                    </h2>
+                  </div>
+                  <div class="star-rating__star-container">
+                      <img class="star-rating__star" src="{{'star.svg' | asset_url}}" alt="">
+                      <img class="star-rating__star" src="{{'star.svg' | asset_url}}" alt="">
+                      <img class="star-rating__star" src="{{'star.svg' | asset_url}}" alt="">
+                      <img class="star-rating__star" src="{{'star.svg' | asset_url}}" alt="">
+                      <img class="star-rating__star" src="{{'star.svg' | asset_url}}" alt="">
+                      <div class="star-rating__rating"><span>4.5/5</span></div>
+                      <div class="star-rating__reviews"><span>215 reviews</span></div>
                   </div>
                 </div>
               {%- when 'text' -%}
@@ -464,6 +476,18 @@
   "blocks": [
     {
       "type": "@app"
+    },
+    {
+      "type": "star-rating",
+      "name": "star-rating",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "title",
+          "default": "Klanten waarderen onss",
+          "label": "t:sections.featured-product.blocks.text.settings.text.label"
+        }
+      ]
     },
     {
       "type": "text",
