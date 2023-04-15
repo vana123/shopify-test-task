@@ -69,7 +69,7 @@
   <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
     <div class="grid__item product__media-wrapper{% if section.settings.media_position == 'right' %} medium-hide large-up-hide{% endif %}">
       {% comment %} {% render 'product-media-gallery', variant_images: variant_images %} {% endcomment %}
-      <div class="page-wrap">
+      <div class="page-wrap" >
         <div>
           <div class="slide-container__wrap">
             <ul class="slide-container">
@@ -80,16 +80,28 @@
               {% endfor %}
             </ul>
           </div>
-          <div class="slider">
-            <ul class="slide_list">
-              {% for media in product.media %}
-                <li class='carousel-seat'>
-                  <a href="#slide{{media.position}}"><img src="{{media |img_url: '100x100'}}" alt=""></a>
-                </li>
-              {% endfor %}
-            </ul>
-            <button class="arrow left">⇦</button>
-            <button class="arrow right">⇨</button>
+          <div class="slide-nav">
+            <div class="carousel">
+              <div class="nav nav-left">
+                <img src="{{'arrow-left.svg' | asset_url}}" alt=">">
+              </div>
+              <div class="carousel-content">
+                
+                {% for media in product.media %}
+                  <div class="slide-n">
+                    <div class="img-wraper" style="margin: 0 5px;">
+                      <a href="#slide{{media.position}}">
+                        <img src="{{media |img_url: '100x100'}}" alt="">
+                      </a>
+                      </div>
+                    </div>
+                {% endfor %}
+              </div>
+              <div class="nav nav-right">
+                <img src="{{'arrow-rght.svg' | asset_url}}" alt="<">
+                <div></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -402,13 +414,13 @@
 
 
 
-      const hiddenInput = document.querySelector('#                                                                                                                                                                                                                                                                  {{ product_form_id }} input[name="id"]');
+      const hiddenInput = document.querySelector('#                                                                                                                                                                                                                                                                                      {{ product_form_id }} input[name="id"]');
       const noScriptInputWrapper = document.createElement('div');
-      const variantSwitcher = document.querySelector('variant-radios[data-section="                                                                                                                                                                                                                                                                  {{ section.id }} "]') || document.querySelector('variant-selects[data-section="                                                                                                                                                                                                                                                                  {{ section.id }} "]');
-      noScriptInputWrapper.innerHTML = document.querySelector('.product-form__noscript-wrapper-                                                                                                                                                                                                                                                                  {{ section.id }}').textContent;
+      const variantSwitcher = document.querySelector('variant-radios[data-section="                                                                                                                                                                                                                                                                                      {{ section.id }} "]') || document.querySelector('variant-selects[data-section="                                                                                                                                                                                                                                                                                      {{ section.id }} "]');
+      noScriptInputWrapper.innerHTML = document.querySelector('.product-form__noscript-wrapper-                                                                                                                                                                                                                                                                                      {{ section.id }}').textContent;
       variantSwitcher.outerHTML = noScriptInputWrapper.outerHTML;
 
-      document.querySelector('#Variants-                                                                                                                                                                                                                                                                  {{ section.id }}').addEventListener('change', function(event) {
+      document.querySelector('#Variants-                                                                                                                                                                                                                                                                                      {{ section.id }}').addEventListener('change', function(event) {
         hiddenInput.value = event.currentTarget.value;
       });
     });
@@ -425,8 +437,8 @@
   <script type="application/ld+json">
     {
     "@context": "http://schema.org/",
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              "@type": "Product",
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              "name": {{ product.title | json }},
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              "@type": "Product",
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              "name": {{ product.title | json }},
     "url": {{ request.origin | append: product.url | json }},
     {% if seo_media -%}
       "image": [
@@ -439,7 +451,7 @@
     {%- endif %}
     "brand": {
     "@type": "Brand",
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                "name": {{ product.vendor | json }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                "name": {{ product.vendor | json }}
     },
     "offers": [
     {%- for variant in product.variants -%}
