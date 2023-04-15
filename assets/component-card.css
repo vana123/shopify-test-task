@@ -8,7 +8,7 @@
 .card {
 	text-decoration: none;
 	text-align: var(--text-alignment);
-  transform: scale(0.7);
+	transform: scale(0.7);
 }
 
 .card:not(.ratio) {
@@ -104,7 +104,7 @@
 
 .card__inner {
 	width: 100%;
-  min-height: 360px;
+	min-height: 360px;
 }
 
 .card--media .card__inner .card__content {
@@ -382,8 +382,7 @@
 	text-align: center;
 
 	color: #000000;
-  margin: 16px 0;
-
+	margin: 16px 0;
 }
 
 .card__varant {
@@ -393,21 +392,26 @@
 	background: #d5dce2;
 	border-radius: 15px;
 	padding: 7px 10px;
-
 }
 
 .card__description {
 	/* width: 321px; */
-	height: 45px; 
 	font-family: "Inter";
 	font-style: normal;
 	font-weight: 300;
 	font-size: 14px;
+	height: 44px;
 	line-height: 22px;
 	text-align: center;
-  overflow: hidden;
+	overflow: hidden;
 
-  margin: 16px 0;
+	margin: 16px 0;
 
-  /* border: 1px solid #000000; */
+	/* border: 1px solid #000000; */
+}
+.card__description p {
+	margin: 0;
+}
+.card__description ul {
+	display: none;
 }

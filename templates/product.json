@@ -50,8 +50,8 @@
         "mobile_thumbnails": "hide",
         "hide_variants": true,
         "enable_video_looping": false,
-        "padding_top": 36,
-        "padding_bottom": 12
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
     "613cb06a-94a4-454d-9c38-c39f958cb8a9": {
@@ -60,6 +60,7 @@
         "1ea592ce-b0cf-4ab3-a8c4-de65f620c39f": {
           "type": "star-rating",
           "settings": {
+            "title": "Klanten waarderen onss"
           }
         }
       },
