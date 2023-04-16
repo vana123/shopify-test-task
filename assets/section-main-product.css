@@ -175,7 +175,9 @@ input[type="number"]::-webkit-outer-spin-button {
 	justify-content: center;
 }
 .product__buy-buttons .payment-method img {
-	margin: 5px 16px;
+	margin: 5px 14px;
+	max-width: 50px;
+	max-height: 44px;
 }
 
 .product-slider {
