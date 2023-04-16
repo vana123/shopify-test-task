@@ -927,11 +927,13 @@ summary::-webkit-details-marker {
 /* component-title */
 .title,
 .title-wrapper-with-link {
-	margin: 3rem 0 2rem;
+	font-family: "Gilroy";
 	font-style: normal;
 	font-weight: 600;
 	font-size: 52px;
 	line-height: 54px;
+	margin: 3rem 0 2rem;
+
 	/* identical to box height, or 104% */
 
 	color: #191919;
