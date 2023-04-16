@@ -185,3 +185,10 @@ input[type="number"]::-webkit-outer-spin-button {
 		margin: 0 5px;
 	}
 }
+
+.product-head-padding-left{
+	padding-left: 45px;
+}
+.product-head-padding-right{
+	padding-right: 45px;
+}
