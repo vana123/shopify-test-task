@@ -49,6 +49,9 @@
 	/* height: 100%; */
 	object-fit: cover;
 }
+.product__description li{
+	margin: 16px 0;
+}
 .product__description li > span{
 	display: grid;
 	grid-template-columns: 24px auto;
@@ -191,4 +194,8 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 .product-head-padding-right{
 	padding-right: 45px;
+}
+
+.product__info-container{
+	margin-top: 50px;
 }
